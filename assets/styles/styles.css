@@ -58,3 +58,11 @@ body {
 	color: white;
 	font-size: 2.5rem;
 }
+
+.salida .resultados-realizados {
+	position: relative;
+	left: 0%;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 1rem;
+}
