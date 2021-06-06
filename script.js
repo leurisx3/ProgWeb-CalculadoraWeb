@@ -49,11 +49,12 @@ class Calculator {
                 computacion = anterior / actual
                 break
             default:
-                return    
+                return
         }
         this.operacionActual = computacion
         this.operacion = undefined
         this.operacionAnterior = ''
+        return computacion
     }
 
     getDisplayNumber(numero) {
@@ -64,7 +65,7 @@ class Calculator {
         if (isNaN(digitosInt)) {
             intDisplay = ''
         } else {
-            intDisplay = digitosInt.toLocaleString('en', {maximumFractionDigits: 0})
+            intDisplay = digitosInt.toLocaleString('en', { maximumFractionDigits: 0 })
         }
         if (digitosDecimales != null) {
             return `${intDisplay}.${digitosDecimales}`
@@ -75,9 +76,9 @@ class Calculator {
 
     actualizarPantalla() {
         this.operacionActualTexto.innerText =
-         this.getDisplayNumber(this.operacionActual)
+            this.getDisplayNumber(this.operacionActual)
         if (this.operacion != null) {
-            this.operacionAnteriorTexto.innerText = 
+            this.operacionAnteriorTexto.innerText =
                 `${this.getDisplayNumber(this.operacionAnterior)} ${this.operacion}`
         } else {
             this.operacionAnteriorTexto.innerText = ''
@@ -92,8 +93,11 @@ const borrar = document.querySelector('[dato-borrar]')
 const limpiar = document.querySelector('[dato-limpiar]')
 const operacionAnteriorTexto = document.querySelector('[dato-operador-anterior]')
 const operacionActualTexto = document.querySelector('[dato-operador-actual]')
+const resultadoGuardadoEnLocalStorage = localStorage.getItem('resultadoGuardado')
 
 const calculator = new Calculator(operacionAnteriorTexto, operacionActualTexto)
+
+const resultadoCalculado = calculator.operacionActual.toString()
 
 numeros.forEach(boton => {
     boton.addEventListener('click', () => {
@@ -109,8 +113,10 @@ operadores.forEach(boton => {
     })
 })
 
+
 resultado.addEventListener('click', boton => {
     calculator.computar()
+    salvarResultadoToLocalStorage()
     calculator.actualizarPantalla()
 })
 
@@ -123,3 +129,7 @@ borrar.addEventListener('click', boton => {
     calculator.borrarNumero()
     calculator.actualizarPantalla()
 })
+
+const salvarResultadoToLocalStorage = () => {
+    localStorage.setItem('resultadoGuardado', calculator.operacionActual)
+}
