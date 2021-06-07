@@ -94,6 +94,7 @@ const limpiar = document.querySelector('[dato-limpiar]')
 const operacionAnteriorTexto = document.querySelector('[dato-operador-anterior]')
 const operacionActualTexto = document.querySelector('[dato-operador-actual]')
 const resultadoGuardadoEnLocalStorage = localStorage.getItem('resultadoGuardado')
+const resultadosRealizados = document.querySelector('[dato-resultado-realizados]')
 
 const calculator = new Calculator(operacionAnteriorTexto, operacionActualTexto)
 
@@ -117,6 +118,7 @@ operadores.forEach(boton => {
 resultado.addEventListener('click', boton => {
     calculator.computar()
     salvarResultadoToLocalStorage()
+    resultadosRealizados.textContent = resultadoGuardadoEnLocalStorage
     calculator.actualizarPantalla()
 })
 
